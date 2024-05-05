@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"os"
 	"os/signal"
 	"syscall"
@@ -10,9 +11,14 @@ import (
 )
 
 func main() {
-	go event.Consume(config.KAFKA_TOPIC_POSTS)
+	ctx, cancel := context.WithCancel(context.Background())
+	postsConsumer := event.NewConsumer(config.KAFKA_TOPIC_POSTS)
+	defer postsConsumer.Close()
+
+	go postsConsumer.Consume(ctx)
 
 	quitChannel := make(chan os.Signal, 1)
 	signal.Notify(quitChannel, syscall.SIGINT, syscall.SIGTERM)
 	<-quitChannel
+	cancel()
 }

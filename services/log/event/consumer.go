@@ -9,16 +9,25 @@ import (
 	"github.com/tomef96/coop-test/log/config"
 )
 
-func Consume(topic string) {
+type Consumer struct {
+	*kafka.Reader
+}
+
+func NewConsumer(topic string) *Consumer {
 	reader := kafka.NewReader(kafka.ReaderConfig{
 		Brokers: []string{config.KAFKA_BROKER_URL},
 		Topic:   topic,
 		GroupID: fmt.Sprintf("%v-consumers", topic),
 	})
-	defer reader.Close()
 
+	return &Consumer{
+		reader,
+	}
+}
+
+func (c *Consumer) Consume(ctx context.Context) {
 	for {
-		m, err := reader.ReadMessage(context.Background())
+		m, err := c.ReadMessage(ctx)
 		if err != nil {
 			log.Printf("error while reading message: %v\n", err)
 			continue
