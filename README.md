@@ -1,8 +1,8 @@
-# Coop Test
+# Project XYZ
 
 <!--toc:start-->
 
-- [Coop Test](#coop-test)
+- [Top](#project-xyz)
   - [Architecture](#architecture)
     - [System flowchart](#system-flowchart)
   - [Prerequisites](#prerequisites)
@@ -57,7 +57,7 @@ mastodon service will result in the post being logged by the log service.
    curl -X POST \
    http://localhost:8081/posts \
    -H "Content-Type: application/json" \
-   -d '{"title":"A Day in the Life at Coop","body":"I started the day with..."}'
+   -d '{"title":"A Day in the Life at Google","body":"I started the day with..."}'
    ```
 
 3. Notice that the log service almost immediately prints information about the post.
