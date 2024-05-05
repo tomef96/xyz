@@ -18,12 +18,11 @@ func NewPostsPublisher() *PostsPublisher {
 }
 
 func (p *PostsPublisher) Publish(ctx context.Context, post domain.Post) error {
-	p.KafkaPublisher.Publish(ctx, Event{
+	return p.KafkaPublisher.Publish(ctx, Event{
 		Version: post.Version(),
 		Schema:  "post",
 		Payload: post,
 	})
-	return nil
 }
 
 func (p *PostsPublisher) Close() {

@@ -33,7 +33,7 @@ func TestHTTPServer_Serve(t *testing.T) {
 	t.Run("it responds to get calls towards /posts", func(t *testing.T) {
 		postsService := domain.NewPostsService(&PostsStorage{}, &PostsPublisher{})
 
-		router := Router(postsService)
+		router := HTTPRouter(postsService)
 
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest(http.MethodGet, "/posts", nil)
@@ -57,7 +57,7 @@ func TestHTTPServer_Serve(t *testing.T) {
 	t.Run("it responds to post calls towards /posts", func(t *testing.T) {
 		postsService := domain.NewPostsService(&PostsStorage{}, &PostsPublisher{})
 
-		router := Router(postsService)
+		router := HTTPRouter(postsService)
 
 		w := httptest.NewRecorder()
 		data, _ := json.Marshal(domain.NewPost{

@@ -16,7 +16,7 @@ func main() {
 	defer postsPublisher.Close()
 	postsService := domain.NewPostsService(postsStorage, postsPublisher)
 
-	router := transport.Router(postsService)
+	router := transport.HTTPRouter(postsService)
 	if err := router.Run(":8080"); err != nil {
 		log.Fatal(err)
 	}

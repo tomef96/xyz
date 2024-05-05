@@ -7,7 +7,7 @@ import (
 	"github.com/tomef96/coop/mastodon/domain"
 )
 
-func Router(postsService domain.PostsService) *gin.Engine {
+func HTTPRouter(postsService domain.PostsService) *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/posts", func(ctx *gin.Context) {
