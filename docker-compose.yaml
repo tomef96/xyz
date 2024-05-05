@@ -27,8 +27,6 @@ services:
 
   log:
     build: services/log
-    ports:
-      - "8080:8080"
     environment:
       - KAFKA_BROKER_URL=kafka
     env_file:
