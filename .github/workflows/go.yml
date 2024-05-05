@@ -20,7 +20,9 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: '1.22'
-
+        cache-dependency-path: |
+             services/mastodon/go.sum
+             
     - name: Build
       run: go build -v ./...
 
@@ -39,6 +41,8 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
+          cache-dependency-path: |
+             services/log/go.sum
   
       - name: Build
         run: go build -v ./...
