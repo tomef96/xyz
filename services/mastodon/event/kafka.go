@@ -52,11 +52,13 @@ func (p *KafkaPublisher) Publish(ctx context.Context, event Event) error {
 
 func CreateTopic(topicConfig kafka.TopicConfig) {
 	var conn *kafka.Conn
+	wait := time.Duration(1)
 	for i := 0; i < 10; i++ {
 		innerConn, err := kafka.Dial("tcp", config.KAFKA_BROKER_URL)
 		if err != nil {
-			log.Printf("failed to dial %s, retrying in 1 second", config.KAFKA_BROKER_URL)
-			time.Sleep(time.Second)
+			log.Printf("failed to dial %s, retrying in %d second", config.KAFKA_BROKER_URL, wait)
+			time.Sleep(time.Second * wait)
+			wait = wait + wait
 			continue
 		}
 		conn = innerConn
